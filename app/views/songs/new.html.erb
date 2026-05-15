@@ -33,7 +33,14 @@
 
   <div class="field">
     <%= label_tag "song[new_genre]", "Or add a new genre" %>
-    <%= text_field_tag "song[new_genre]", nil, placeholder: "e.g. Rock, Hip Hop" %>
+    <%= text_field_tag "song[new_genre]", nil,
+          placeholder: "e.g. Rock, Hip Hop",
+          list: "existing-genres-list" %>
+    <datalist id="existing-genres-list">
+      <% @available_genres.each do |g| %>
+        <option value="<%= g.name %>"></option>
+      <% end %>
+    </datalist>
   </div>
 
   <div class="field">

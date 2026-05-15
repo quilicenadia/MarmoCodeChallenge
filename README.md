@@ -19,7 +19,7 @@ bin/rails db:seed     # optional: 1 artist + 3 songs + 3 genres for a quick demo
 
 On Windows, follow the same commands inside the project directory (PowerShell or Git Bash).
 
-The challenge README’s generic setup mentions **Webpacker** and **yarn/npm** for a default `rails new` template. This submission **does not use Webpacker** or a JavaScript build step: the UI is plain **ERB + Sprockets** (`sass-rails`) with no rich client-side code, which matches the challenge’s “basic, functional” UI and does **not** conflict with the stated requirements—only with that optional template path.
+The challenge README’s generic setup mentions **Webpacker** and **yarn/npm** for a default `rails new` template. This submission **does not use Webpacker** or any JavaScript build step. Instead, a thin client-side layer is delivered through **Sprockets** with a single `app/assets/javascripts/application.js` that requires `rails-ujs` (enables `data-confirm` on destructive buttons and `data-method` on links), `turbolinks` (smoother page navigation), plus a small `flash.js` that auto-dismisses flash messages. No yarn/npm, no JS frameworks, no client-side rendering — just enough polish to keep the UX clean.
 
 ## Running the test suite
 
@@ -40,11 +40,12 @@ bin/rails server
 # then open http://localhost:3000
 ```
 
-The UI is intentionally plain — basic ERB views — and lets you:
-- Create / edit / delete artists.
-- Add songs to an artist (picking from existing genres and/or typing a new one).
+The UI is intentionally plain — basic ERB views with a sprinkle of JS — and lets you:
+- Create / edit / delete artists (with native `confirm()` on destructive actions, via `rails-ujs`).
+- Add songs to an artist (picking from existing genres, or typing a new one with autocomplete suggestions powered by a native `<datalist>`).
 - Mark a song as featured or remove it.
 - See the artist's **song count**, **top genres** and **featured song** on the show page.
+- Flash messages fade out automatically after 3 seconds.
 
 ## Trying the flows in `rails console`
 
@@ -90,6 +91,11 @@ app/
   views/
     artists/{index,show,new,edit,_form}.html.erb
     songs/new.html.erb
+  assets/
+    javascripts/
+      application.js    # Sprockets bundle: rails-ujs + turbolinks + require_tree
+      flash.js          # auto-dismiss flash banners after 3s
+    stylesheets/application.css
 db/migrate/             # 5 migrations: artists, songs, genres, song_genres, featured_song_id
 spec/
   models/, requests/, factories/
