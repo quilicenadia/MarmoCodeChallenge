@@ -94,14 +94,3 @@ db/migrate/             # 5 migrations: artists, songs, genres, song_genres, fea
 spec/
   models/, requests/, factories/
 ```
-
-## Submission
-
-```bash
-git bundle create marmoset.bundle master
-```
-
-- Email `marmoset.bundle` to **dev@marmosetmusic.com**
-- Subject: **Marmo Code Challenge - YOUR NAME**
-
-The `Contexto/` folder in this repo contains the original challenge spec for reference and is excluded from version control via `.gitignore`.
