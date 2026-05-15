@@ -1,0 +1,49 @@
+<h2>Add song to <%= @artist.name %></h2>
+
+<%= form_with(model: [@artist, @song], local: true) do |f| %>
+  <% if @song.errors.any? %>
+    <div class="error-explanation">
+      <h2><%= pluralize(@song.errors.count, "error") %> prohibited this song from being saved:</h2>
+      <ul>
+        <% @song.errors.full_messages.each do |msg| %><li><%= msg %></li><% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <label>Existing genres</label>
+    <div class="checkbox-group">
+      <% if @available_genres.any? %>
+        <% @available_genres.each do |genre| %>
+          <label>
+            <%= check_box_tag "song[genre_ids][]", genre.id, false %>
+            <%= genre.name %>
+          </label>
+        <% end %>
+      <% else %>
+        <em>No genres yet — add one below.</em>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= label_tag "song[new_genre]", "Or add a new genre" %>
+    <%= text_field_tag "song[new_genre]", nil, placeholder: "e.g. Rock, Hip Hop" %>
+  </div>
+
+  <div class="field">
+    <label>
+      <%= check_box_tag "featured", "1", false %>
+      Mark as featured
+    </label>
+  </div>
+
+  <%= f.submit "Add song", class: "btn" %>
+<% end %>
+
+<p style="margin-top: 1rem"><%= link_to "Back", @artist %></p>

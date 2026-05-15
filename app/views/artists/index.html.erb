@@ -1,0 +1,42 @@
+<h2>Artists</h2>
+
+<% if @artists.empty? %>
+  <p class="card">No artists yet. <%= link_to "Create one", new_artist_path %>.</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Songs</th>
+        <th>Top genres</th>
+        <th>Featured song</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @artists.each do |artist| %>
+        <tr>
+          <td><%= link_to artist.name, artist %></td>
+          <td><%= artist.song_count %></td>
+          <td>
+            <% artist.top_genres.each do |g| %>
+              <span class="tag"><%= g %></span>
+            <% end %>
+          </td>
+          <td>
+            <% if artist.featured_song %>
+              <%= artist.featured_song.title %>
+            <% else %>
+              <em>none</em>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to "View", artist, class: "btn btn-secondary" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<p style="margin-top: 1rem"><%= link_to "New artist", new_artist_path, class: "btn" %></p>

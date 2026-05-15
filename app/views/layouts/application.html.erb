@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Marmoset Challenge</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <h1><%= link_to "Marmoset Challenge", root_path %></h1>
+      <nav>
+        <%= link_to "All artists", artists_path %>
+        <%= link_to "New artist", new_artist_path %>
+      </nav>
+    </header>
+
+    <main class="container">
+      <% if notice %><p class="flash flash-notice"><%= notice %></p><% end %>
+      <% if alert %><p class="flash flash-alert"><%= alert %></p><% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>
